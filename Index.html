@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sanjar &amp; Shukrona — 12.12.2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #110406;
+      --crimson: #5b0d18;
+      --crimson-deep: #2a050b;
+      --velvet: #3c0810;
+      --gold: #d6b174;
+      --gold-bright: #f2d59b;
+      --gold-dim: #9c7944;
+      --ivory: #fbf6ee;
+      --paper: #f6efe3;
+      --ink: #2c1614;
+      --muted: #765c55;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #090203;
+      color: var(--ivory);
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+
+    .phone-frame {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      background: var(--bg-dark);
+      min-height: 100dvh;
+      position: relative;
+      box-shadow: 0 0 70px rgba(0, 0, 0, 0.85);
+      overflow-x: hidden;
+    }
+
+    /* ЭКРАН 1: ГЛИТТЕР (БЛЁСТКИ) */
+    .glitter-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      max-width: 440px;
+      margin: 0 auto;
+      background: radial-gradient(circle at 50% 35%, #4b0913 0%, #190306 75%, #0c0102 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 46px 24px 58px;
+      text-align: center;
+      transition: opacity 0.9s ease, visibility 0.9s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .glitter-overlay.cleared {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #glitterCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .glitter-top {
+      position: relative;
+      z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: rgba(242, 213, 155, 0.85);
+      letter-spacing: 0.04em;
+    }
+
+    .glitter-bottom {
+      position: relative;
+      z-index: 2;
+    }
+
+    .glitter-title {
+      font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+      font-size: 40px;
+      color: var(--gold-bright);
+      text-shadow: 0 4px 22px rgba(0, 0, 0, 0.85);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .glitter-sub {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(251, 246, 238, 0.78);
+    }
+
+    .mic-btn {
+      margin-top: 14px;
+      background: rgba(214, 177, 116, 0.14);
+      border: 1px solid rgba(242, 213, 155, 0.45);
+      color: var(--gold-bright);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ЭКРАН 2: СЦЕНА И ТЕАТРАЛЬНЫЙ ЗАНАВЕС */
+    .stage-section {
+      position: relative;
+      min-height: 92dvh;
+      padding: 46px 22px 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 50% 25%, rgba(168, 32, 48, 0.42) 0%, rgba(28, 4, 8, 0.96) 72%),
+        linear-gradient(180deg, #27050a 0%, #110305 100%);
+      overflow: hidden;
+    }
+
+    .spotlight {
+      position: absolute;
+      top: -10%;
+      width: 150px;
+      height: 115%;
+      background: linear-gradient(180deg, rgba(242, 213, 155, 0.24) 0%, rgba(242, 213, 155, 0.03) 70%, transparent 100%);
+      filter: blur(8px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .spotlight.left {
+      left: 16%;
+      transform: rotate(-14deg);
+    }
+
+    .spotlight.right {
+      right: 16%;
+      transform: rotate(14deg);
+    }
+
+    .curtain {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 53%;
+      z-index: 10;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #4b0912 0px,
+          #290308 14px,
+          #610d19 28px,
+          #220206 42px
+        );
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.75);
+      transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .curtain.left {
+      left: 0;
+      border-right: 2px solid rgba(214, 177, 116, 0.35);
+    }
+
+    .curtain.right {
+      right: 0;
+      border-left: 2px solid rgba(214, 177, 116, 0.35);
+    }
+
+    .stage-section.curtain-open .curtain.left {
+      transform: translateX(-84%);
+    }
+
+    .stage-section.curtain-open .curtain.right {
+      transform: translateX(84%);
+    }
+
+    .stage-header {
+      position: relative;
+      z-index: 4;
+      margin-top: 6px;
+    }
+
+    .stage-kicker {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--gold-bright);
+      margin-bottom: 6px;
+    }
+
+    .couple-script {
+      font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+      font-size: 50px;
+      line-height: 0.98;
+      color: var(--gold-bright);
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.65);
+    }
+
+    .couple-amp {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 26px;
+      color: var(--gold);
+      margin: 2px 0;
+    }
+
+    .stage-invite-line {
+      margin-top: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(251, 246, 238, 0.85);
+    }
+
+    .stage-date {
+      margin-top: 6px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      color: var(--gold-bright);
+    }
+
+    .stage-venue {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(242, 213, 155, 0.75);
+      margin-top: 4px;
+    }
+
+    .podium-wrap {
+      position: relative;
+      z-index: 4;
+      margin-top: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stage-portrait {
+      width: 210px;
+      height: 265px;
+      border-radius: 120px 120px 18px 18px;
+      border: 1.5px solid rgba(242, 213, 155, 0.55);
+      background: radial-gradient(circle at 50% 35%, rgba(242, 213, 155, 0.25), rgba(34, 5, 10, 0.9));
+      box-shadow: 0 0 45px rgba(242, 213, 155, 0.25);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .stage-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .stage-portrait.has-photo img {
+      display: block;
+    }
+
+    .stage-silhouette {
+      padding: 18px;
+      color: var(--gold-bright);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+    }
+
+    .stage-portrait.has-photo .stage-silhouette {
+      display: none;
+    }
+
+    .podium-base {
+      width: 250px;
+      height: 22px;
+      margin-top: -8px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(242, 213, 155, 0.65) 0%, rgba(156, 121, 68, 0.25) 65%, transparent 100%);
+      box-shadow: 0 10px 26px rgba(242, 213, 155, 0.35);
+    }
+
+    /* ЭКРАН 3: ШЁЛКОВЫЙ ФОН И КРУЖЕВНОЙ КОНВЕРТ С ПИСЬМОМ */
+    .silk-envelope-section {
+      position: relative;
+      padding: 64px 20px 72px;
+      background:
+        radial-gradient(circle at 20% 25%, #6d0e1c 0%, transparent 45%),
+        radial-gradient(circle at 80% 65%, #590a15 0%, transparent 50%),
+        linear-gradient(135deg, #2b040a 0%, #4d0913 38%, #1e0206 72%, #3d070f 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .envelope-stage {
+      position: relative;
+      width: min(92%, 340px);
+      padding-top: 150px;
+      cursor: pointer;
+    }
+
+    .letter-card {
+      position: relative;
+      z-index: 2;
+      width: 88%;
+      margin: 0 auto;
+      background: var(--ivory);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 24px 20px 76px;
+      text-align: center;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(214, 177, 116, 0.65);
+      transform: translateY(72px);
+      transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .envelope-stage.letter-out .letter-card {
+      transform: translateY(-28px);
+    }
+
+    .letter-title {
+      font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+      font-size: 32px;
+      color: var(--crimson);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .letter-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15.5px;
+      line-height: 1.5;
+      color: #3c2220;
+    }
+
+    .lace-envelope-front {
+      position: relative;
+      z-index: 4;
+      margin-top: -66px;
+      height: 165px;
+      border-radius: 0 0 18px 18px;
+      background: linear-gradient(180deg, #5e0c18 0%, #37050c 100%);
+      border: 1.5px solid rgba(242, 213, 155, 0.45);
+      border-top: 3px dashed rgba(242, 213, 155, 0.65);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .lace-seal {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #f2d59b, #9c7944);
+      color: #29070b;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .lace-hint {
+      margin-top: 10px;
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+    }
+
+    /* КРУЖЕВНОЙ РАЗДЕЛИТЕЛЬ */
+    .lace-divider {
+      height: 22px;
+      width: 100%;
+      background:
+        radial-gradient(circle at 12px 0, transparent 10px, var(--gold) 11px, var(--paper) 12px);
+      background-size: 24px 22px;
+    }
+
+    .lace-divider.dark-top {
+      background:
+        radial-gradient(circle at 12px 22px, var(--paper) 10px, var(--gold) 11px, var(--bg-dark) 12px);
+      background-size: 24px 22px;
+    }
+
+    /* ЭКРАН 4: ЛИСТАЕМЫЙ КАЛЕНДАРЬ (SAVE THE DATE) */
+    .calendar-section {
+      padding: 46px 22px 50px;
+      background: radial-gradient(circle at top, #27060b 0%, #100305 100%);
+      text-align: center;
+    }
+
+    .section-script {
+      font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+      font-size: 42px;
+      color: var(--gold-bright);
+      line-height: 1.05;
+    }
+
+    .section-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(251, 246, 238, 0.78);
+      margin-bottom: 22px;
+    }
+
+    .calendar-book {
+      width: min(92%, 320px);
+      margin: 0 auto;
+      background: var(--ivory);
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 18px 16px 20px;
+      border: 2px solid var(--gold);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.65);
+      position: relative;
+      transition: transform 0.28s ease;
+    }
+
+    .calendar-book.flipping {
+      transform: rotateY(-14deg) scale(0.98);
+    }
+
+    .cal-rings {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: -26px;
+      margin-bottom: 10px;
+    }
+
+    .cal-ring {
+      width: 10px;
+      height: 18px;
+      border-radius: 6px;
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold-dim));
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .cal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .cal-arrow {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(91, 13, 24, 0.25);
+      background: transparent;
+      color: var(--crimson);
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .cal-month-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 25px;
+      font-weight: 700;
+      color: var(--crimson);
+    }
+
+    .cal-year {
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      color: var(--muted);
+      margin-top: -4px;
+      margin-bottom: 10px;
+    }
+
+    .cal-weekdays,
+    .cal-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      font-size: 11.5px;
+    }
+
+    .cal-weekdays span {
+      font-weight: 600;
+      color: var(--muted);
+      padding-bottom: 4px;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .cal-day.wedding-day {
+      background: var(--crimson);
+      color: var(--gold-bright);
+      font-weight: 700;
+      box-shadow: 0 0 0 2px var(--gold), 0 4px 12px rgba(91, 13, 24, 0.45);
+    }
+
+    .cal-caption {
+      margin-top: 22px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--gold-bright);
+    }
+
+    .cal-time-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(251, 246, 238, 0.8);
+      margin-bottom: 16px;
+    }
+
+    .gold-pill-btn {
+      display: inline-block;
+      background: linear-gradient(180deg, #e7c486 0%, #b98e4c 100%);
+      color: #24090b;
+      text-decoration: none;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 26px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+      cursor: pointer;
+    }
+
+    /* ЭКРАН 5: ПРОГРАММА ВЕЧЕРА НА СВЕТЛОЙ БУМАГЕ */
+    .paper-section {
+      background: var(--paper);
+      color: var(--ink);
+      padding: 44px 22px 48px;
+      text-align: center;
+    }
+
+    .paper-script {
+      font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+      font-size: 44px;
+      color: var(--crimson);
+      line-height: 1.05;
+    }
+
+    .paper-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .evening-list {
+      text-align: left;
+      max-width: 340px;
+      margin: 0 auto 26px;
+    }
+
+    .evening-row {
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(156, 121, 68, 0.25);
+      align-items: center;
+    }
+
+    .evening-row:last-child {
+      border-bottom: none;
+    }
+
+    .evening-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--crimson);
+      line-height: 1;
+    }
+
+    .evening-time small {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .evening-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .evening-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ЭКРАН 6: МЕСТО ТОРЖЕСТВА И КАРТА */
+    .venue-section {
+      background: radial-gradient(circle at top, #27060b 0%, #100305 100%);
+      padding: 46px 22px 50px;
+      text-align: center;
+    }
+
+    .venue-arch {
+      width: min(88%, 290px);
+      height: 220px;
+      margin: 16px auto 20px;
+      border-radius: 150px 150px 16px 16px;
+      border: 1.5px solid var(--gold);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(242, 213, 155, 0.15), rgba(32, 5, 10, 0.9)),
+        radial-gradient(circle at 50% 30%, #7d202d, #1c0408);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .venue-arch img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .venue-arch.has-photo img {
+      display: block;
+    }
+
+    .venue-arch-label {
+      padding: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--gold-bright);
+    }
+
+    .venue-arch.has-photo .venue-arch-label {
+      display: none;
+    }
+
+    .venue-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--gold-bright);
+    }
+
+    .venue-address {
+      font-size: 12.5px;
+      color: rgba(251, 246, 238, 0.78);
+      margin: 4px 0 18px;
+    }
+
+    .map-card {
+      margin: 22px auto 0;
+      max-width: 340px;
+      background: #efe3cf;
+      color: var(--ink);
+      border-radius: 16px;
+      padding: 16px;
+      border: 1.5px solid var(--gold);
+      text-align: left;
+    }
+
+    .map-preview {
+      height: 118px;
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, rgba(156, 121, 68, 0.18) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(156, 121, 68, 0.18) 1px, transparent 1px),
+        #e5d5bc;
+      background-size: 22px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .map-pin {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--crimson);
+      color: var(--gold-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 6px 16px rgba(91, 13, 24, 0.45);
+    }
+
+    .map-notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    .map-notes strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      color: var(--crimson);
+    }
+
+    /* ЭКРАН 7: ДРЕСС-КОД И ТКАНИ */
+    .dress-section {
+      padding: 46px 22px 50px;
+      background:
+        radial-gradient(circle at 75% 20%, #5a0b16 0%, transparent 45%),
+        linear-gradient(180deg, #1b0307 0%, #100204 100%);
+      text-align: center;
+    }
+
+    .fabric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 330px;
+      margin: 20px auto 18px;
+    }
+
+    .fabric-card {
+      height: 112px;
+      border-radius: 14px;
+      border: 1px solid rgba(242, 213, 155, 0.45);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--ivory);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .fabric-satin {
+      background: linear-gradient(135deg, #2d050b 0%, #8b1424 48%, #34060d 100%);
+    }
+
+    .fabric-velvet {
+      background: radial-gradient(circle at 30% 30%, #630c18, #1f0307);
+    }
+
+    .fabric-sequins {
+      background:
+        radial-gradient(circle, rgba(255, 224, 178, 0.45) 1px, transparent 1.5px),
+        linear-gradient(135deg, #6e0e1c, #2d040a);
+      background-size: 9px 9px, 100% 100%;
+    }
+
+    .fabric-silk {
+      background: linear-gradient(135deg, #d7b47c 0%, #f4dfc0 48%, #a67c42 100%);
+      color: #2b130e;
+    }
+
+    .color-dots {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 14px 0 20px;
+    }
+
+    .color-dot-item {
+      text-align: center;
+      font-size: 10px;
+      color: rgba(251, 246, 238, 0.78);
+    }
+
+    .color-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      margin: 0 auto 4px;
+      border: 1.5px solid rgba(242, 213, 155, 0.6);
+    }
+
+    .dress-notes {
+      text-align: left;
+      max-width: 330px;
+      margin: 0 auto;
+      font-size: 12.5px;
+      color: rgba(251, 246, 238, 0.85);
+    }
+
+    .dress-notes p {
+      margin-bottom: 10px;
+    }
+
+    .dress-notes strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--gold-bright);
+      display: block;
+    }
+
+    /* ЭКРАН 8: ПОЖЕЛАНИЯ И АНКЕТА RSVP */
+    .rsvp-section {
+      background: var(--paper);
+      color: var(--ink);
+      padding: 44px 22px 54px;
+      text-align: center;
+    }
+
+    .note-box {
+      max-width: 340px;
+      margin: 0 auto 16px;
+      background: #fffcf7;
+      border: 1px solid rgba(156, 121, 68, 0.45);
+      border-radius: 14px;
+      padding: 18px 16px;
+      box-shadow: 0 8px 22px rgba(44, 22, 20, 0.06);
+    }
+
+    .note-box h3 {
+      font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+      font-size: 30px;
+      color: var(--crimson);
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .note-box p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      color: #462a26;
+    }
+
+    .rsvp-card {
+      max-width: 340px;
+      margin: 22px auto 0;
+      background: #fffdf9;
+      border: 1.5px solid var(--gold);
+      border-radius: 16px;
+      padding: 22px 18px;
+      text-align: left;
+      box-shadow: 0 14px 34px rgba(44, 22, 20, 0.1);
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--crimson);
+      margin-bottom: 6px;
+    }
+
+    .field input[type="text"],
+    .field textarea {
+      width: 100%;
+      background: var(--paper);
+      border: 1px solid rgba(156, 121, 68, 0.45);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 13.5px;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .radio-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      margin-bottom: 7px;
+      cursor: pointer;
+    }
+
+    .radio-row input {
+      accent-color: var(--crimson);
+    }
+
+    .crimson-submit {
+      width: 100%;
+      background: linear-gradient(180deg, #741120 0%, #440710 100%);
+      color: var(--gold-bright);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .rsvp-status {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--crimson);
+      min-height: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+
+    <!-- ЭКРАН 1: БЛЁСТКИ -->
+    <div class="glitter-overlay" id="glitterOverlay">
+      <canvas id="glitterCanvas"></canvas>
+      <div class="glitter-top">Приглашение скрывается под сиянием блёсток</div>
+      <div class="glitter-bottom">
+        <div class="glitter-title">Дуньте на блёстки</div>
+        <div class="glitter-sub">Или коснитесь экрана, чтобы открыть занавес</div>
+        <button type="button" class="mic-btn" id="micBtn">Включить микрофон 🎙️</button>
+      </div>
+    </div>
+
+    <!-- ЭКРАН 2: СЦЕНА И ЗАНАВЕС -->
+    <section class="stage-section" id="stageSection">
+      <div class="spotlight left"></div>
+      <div class="spotlight right"></div>
+      <div class="curtain left"></div>
+      <div class="curtain right"></div>
+
+      <div class="stage-header">
+        <div class="stage-kicker">Вместе с нашими семьями</div>
+        <div class="couple-script">
+          Sanjar
+          <span class="couple-amp">&amp;</span>
+          Shukrona
+        </div>
+        <div class="stage-invite-line">приглашают вас разделить день нашей свадьбы</div>
+        <div class="stage-date">12 . 12 . 2026</div>
+        <div class="stage-venue">Начало торжества в 19:00</div>
+      </div>
+
+      <div class="podium-wrap">
+        <div class="stage-portrait" id="stagePortrait">
+          <img id="couplePhotoImg" alt="Sanjar and Shukrona" />
+          <div class="stage-silhouette">S &amp; S<br/>12.12.2026</div>
+        </div>
+        <div class="podium-base"></div>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 3: ШЁЛКОВЫЙ КОНВЕРТ С ПИСЬМОМ -->
+    <section class="silk-envelope-section">
+      <div class="envelope-stage" id="envelopeStage">
+        <div class="letter-card">
+          <div class="letter-title">Дорогие родные и друзья</div>
+          <p class="letter-text">
+            Мы с нетерпением ждали этот вечер и хотим провести его рядом с самыми близкими людьми.
+            Присоединяйтесь к празднику любви, музыки и тёплых воспоминаний.
+          </p>
+        </div>
+        <div class="lace-envelope-front">
+          <div class="lace-seal">S &amp; S</div>
+          <div class="lace-hint" id="envelopeHint">Нажмите, чтобы вынуть письмо</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 4: ЛИСТАЕМЫЙ КАЛЕНДАРЬ -->
+    <section class="calendar-section">
+      <div class="section-script">Save the date</div>
+      <div class="section-sub">Листайте страницы календаря до нашего дня</div>
+
+      <div class="calendar-book" id="calendarBook">
+        <div class="cal-rings">
+          <span class="cal-ring"></span>
+          <span class="cal-ring"></span>
+          <span class="cal-ring"></span>
+        </div>
+        <div class="cal-nav">
+          <button type="button" class="cal-arrow" id="prevMonthBtn">‹</button>
+          <div>
+            <div class="cal-month-title" id="calMonthName">Декабрь</div>
+            <div class="cal-year">2026</div>
+          </div>
+          <button type="button" class="cal-arrow" id="nextMonthBtn">›</button>
+        </div>
+        <div class="cal-weekdays">
+          <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+        </div>
+        <div class="cal-days" id="calDaysGrid"></div>
+      </div>
+
+      <div class="cal-caption">Суббота, 12 декабря 2026</div>
+      <div class="cal-time-note">Сбор гостей в 18:30, начало в 19:00</div>
+      <button type="button" class="gold-pill-btn" id="addToCalBtn">Добавить в календарь 📅</button>
+    </section>
+
+    <div class="lace-divider dark-top"></div>
+
+    <!-- ЭКРАН 5: ПРОГРАММА ВЕЧЕРА -->
+    <section class="paper-section">
+      <div class="paper-script">Программа вечера</div>
+      <div class="paper-sub">Как пройдёт наш праздничный вечер</div>
+
+      <div class="evening-list" id="eveningList"></div>
+
+      <a href="#rsvpSection" class="gold-pill-btn">Подтвердить присутствие</a>
+    </section>
+
+    <div class="lace-divider"></div>
+
+    <!-- ЭКРАН 6: МЕСТО ТОРЖЕСТВА -->
+    <section class="venue-section">
+      <div class="section-script">Место торжества</div>
+      <div class="venue-arch" id="venueArch">
+        <img id="venuePhotoImg" alt="Локация свадьбы" />
+        <div class="venue-arch-label">Праздничный зал<br/>12 декабря 2026</div>
+      </div>
+
+      <div class="venue-name">Свадебный банкетный зал</div>
+      <div class="venue-address">Точка локации отмечена на карте ниже</div>
+
+      <a class="gold-pill-btn" id="mapBtn" href="https://maps.app.goo.gl/sZ9GqgFXrSHkKeYF9" target="_blank" rel="noopener noreferrer">
+        Открыть маршрут на карте 📍
+      </a>
+
+      <div class="map-card">
+        <div class="map-preview">
+          <div class="map-pin">📍</div>
+        </div>
+        <div class="map-notes">
+          <div>
+            <strong>Парковка</strong>
+            Удобный подъезд и парковка у главного входа.
+          </div>
+          <div>
+            <strong>Время</strong>
+            Рекомендуем приехать за 20–30 минут до начала.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 7: ДРЕСС-КОД -->
+    <section class="dress-section">
+      <div class="section-script">Дресс-код</div>
+      <div class="section-sub">Вечерние образы, создающие атмосферу праздника</div>
+
+      <div class="fabric-grid">
+        <div class="fabric-card fabric-satin">Атлас</div>
+        <div class="fabric-card fabric-velvet">Бархат</div>
+        <div class="fabric-card fabric-sequins">Сияние</div>
+        <div class="fabric-card fabric-silk">Шёлк</div>
+      </div>
+
+      <div class="color-dots">
+        <div class="color-dot-item"><div class="color-dot" style="background:#1c0508;"></div>Ночь</div>
+        <div class="color-dot-item"><div class="color-dot" style="background:#5b0d18;"></div>Бордо</div>
+        <div class="color-dot-item"><div class="color-dot" style="background:#9e1828;"></div>Рубин</div>
+        <div class="color-dot-item"><div class="color-dot" style="background:#e6cfa8;"></div>Шампань</div>
+        <div class="color-dot-item"><div class="color-dot" style="background:#262324;"></div>Графит</div>
+      </div>
+
+      <div class="dress-notes">
+        <p><strong>Для дам</strong>Вечерние платья в пол или коктейльные наряды в тёплых и глубоких тонах.</p>
+        <p><strong>Для мужчин</strong>Классический костюм или смокинг с бабочкой или галстуком.</p>
+      </div>
+    </section>
+
+    <div class="lace-divider dark-top"></div>
+
+    <!-- ЭКРАН 8: ПОЖЕЛАНИЯ И АНКЕТА -->
+    <section class="rsvp-section" id="rsvpSection">
+      <div class="note-box">
+        <h3>Подарки</h3>
+        <p>Ваше присутствие и тёплые слова — самый главный подарок для нас в этот день.</p>
+      </div>
+
+      <div class="note-box">
+        <h3>Атмосфера вечера</h3>
+        <p>Будем рады вашим улыбкам, танцам и искренним поздравлениям рядом с нами.</p>
+      </div>
+
+      <div class="paper-script" style="margin-top:26px;">Будете ли вы с нами?</div>
+
+      <form class="rsvp-card" id="rsvpForm">
+        <div class="field">
+          <label for="guestName">Ваше имя и фамилия</label>
+          <input type="text" id="guestName" placeholder="Введите ваше имя" required />
+        </div>
+
+        <div class="field">
+          <label>Сможете ли прийти?</label>
+          <label class="radio-row"><input type="radio" name="attend" value="Да, с радостью приду! ❤️" checked /> Да, с радостью приду!</label>
+          <label class="radio-row"><input type="radio" name="attend" value="Приду вдвоём ✨" /> Приду вдвоём</label>
+          <label class="radio-row"><input type="radio" name="attend" value="К сожалению, не смогу 🙏" /> К сожалению, не смогу</label>
+        </div>
+
+        <div class="field">
+          <label for="guestWish">Пожелание молодожёнам</label>
+          <textarea id="guestWish" rows="3" placeholder="Напишите пару тёплых слов..."></textarea>
+        </div>
+
+        <button type="submit" class="crimson-submit">Отправить ответ 💌</button>
+        <div class="rsvp-status" id="rsvpStatus"></div>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const CONFIG = {
+      couplePhoto: "Photo1.jpg", // Фото пары на сцене
+      venuePhoto: "Photo2.jpg", // Можно указать второе фото, например "Photo2.jpg"
+      googleMapUrl: "https://maps.app.goo.gl/sZ9GqgFXrSHkKeYF9", // Для Android и ПК
+      appleMapUrl: "https://maps.apple/p/RvwmI7wCaccb79", // Для iPhone и iPad
+      telegramUsername: "xurwed07", // Запасной вариант для Telegram (без @)
+      schedule: [
+        { time: "18:30", period: "вечер", title: "Сбор гостей", desc: "Приветственный фуршет и фотозона" },
+        { time: "19:00", period: "вечер", title: "Начало торжества", desc: "Выход молодожёнов и открытие вечера" },
+        { time: "20:00", period: "вечер", title: "Праздничный ужин", desc: "Поздравления родных и близких" },
+        { time: "22:00", period: "вечер", title: "Свадебный торт и танцы", desc: "Музыка, огни и завершение вечера" }
+      ]
+    };
+
+    // Подстановка фото
+    if (CONFIG.couplePhoto) {
+      const img = document.getElementById("couplePhotoImg");
+      img.src = CONFIG.couplePhoto;
+      img.onload = () => document.getElementById("stagePortrait").classList.add("has-photo");
+    }
+    if (CONFIG.venuePhoto) {
+      const vImg = document.getElementById("venuePhotoImg");
+      vImg.src = CONFIG.venuePhoto;
+      vImg.onload = () => document.getElementById("venueArch").classList.add("has-photo");
+    }
+
+    // Выбор карты: iPhone -> Apple Maps, Android -> Google Maps
+    const mapBtn = document.getElementById("mapBtn");
+    function getDeviceMapUrl() {
+      const ua = navigator.userAgent || "";
+      const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const isAndroid = /Android/i.test(ua);
+
+      if (isIOS && CONFIG.appleMapUrl) {
+        return CONFIG.appleMapUrl.trim();
+      }
+      if (isAndroid && CONFIG.googleMapUrl) {
+        return CONFIG.googleMapUrl.trim();
+      }
+      return CONFIG.googleMapUrl || CONFIG.appleMapUrl;
+    }
+    mapBtn.href = getDeviceMapUrl();
+
+    // Программа вечера
+    const eveningList = document.getElementById("eveningList");
+    CONFIG.schedule.forEach((item) => {
+      const row = document.createElement("div");
+      row.className = "evening-row";
+      row.innerHTML = `
+        <div class="evening-time">${item.time}<small>${item.period}</small></div>
+        <div>
+          <div class="evening-name">${item.title}</div>
+          <div class="evening-desc">${item.desc}</div>
+        </div>
+      `;
+      eveningList.appendChild(row);
+    });
+
+    // ГЛИТТЕР (БЛЁСТКИ) + МИКРОФОН / КАСАНИЕ
+    const glitterOverlay = document.getElementById("glitterOverlay");
+    const stageSection = document.getElementById("stageSection");
+    const canvas = document.getElementById("glitterCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+    let blowing = false;
+    let cleared = false;
+
+    function resizeCanvas() {
+      canvas.width = glitterOverlay.offsetWidth || window.innerWidth;
+      canvas.height = glitterOverlay.offsetHeight || window.innerHeight;
+    }
+
+    function initParticles() {
+      resizeCanvas();
+      particles = [];
+      const colors = ["#ff2a4b", "#b80d27", "#f2d59b", "#ff6b81", "#7a0718"];
+      for (let i = 0; i < 420; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 2.4 + 0.8,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          alpha: Math.random() * 0.8 + 0.2,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+
+    function openCurtainScene() {
+      if (cleared) return;
+      cleared = true;
+      blowing = true;
+      setTimeout(() => {
+        glitterOverlay.classList.add("cleared");
+        stageSection.classList.add("curtain-open");
+      }, 450);
+    }
+
+    function animateGlitter() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        if (blowing) {
+          p.vx += (Math.random() - 0.3) * 1.4;
+          p.vy -= Math.random() * 1.8 + 0.6;
+          p.alpha *= 0.96;
+        } else {
+          p.alpha += (Math.random() - 0.5) * 0.08;
+          p.alpha = Math.max(0.2, Math.min(1, p.alpha));
+        }
+        p.x += p.vx;
+        p.y += p.vy;
+
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      if (!glitterOverlay.classList.contains("cleared")) {
+        requestAnimationFrame(animateGlitter);
+      }
+    }
+
+    initParticles();
+    animateGlitter();
+    window.addEventListener("resize", resizeCanvas);
+
+    // Открытие по касанию/клику
+    glitterOverlay.addEventListener("click", (e) => {
+      if (e.target.id === "micBtn") return;
+      openCurtainScene();
+    });
+
+    // Открытие по дуновению в микрофон
+    document.getElementById("micBtn").addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const btn = e.currentTarget;
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        btn.textContent = "Дуйте на экран... 🌬️";
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioCtx.createMediaStreamSource(stream);
+        const analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+        const data = new Uint8Array(analyser.frequencyBinCount);
+
+        const checkBlow = () => {
+          if (cleared) {
+            stream.getTracks().forEach((t) => t.stop());
+            return;
+          }
+          analyser.getByteFrequencyData(data);
+          const avg = data.reduce((a, b) => a + b, 0) / data.length;
+          if (avg > 32) {
+            stream.getTracks().forEach((t) => t.stop());
+            openCurtainScene();
+          } else {
+            requestAnimationFrame(checkBlow);
+          }
+        };
+        checkBlow();
+      } catch {
+        openCurtainScene();
+      }
+    });
+
+    // КОНВЕРТ С ВЫЕЗЖАЮЩИМ ПИСЬМОМ
+    const envelopeStage = document.getElementById("envelopeStage");
+    envelopeStage.addEventListener("click", () => {
+      envelopeStage.classList.toggle("letter-out");
+    });
+
+    const envObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            envelopeStage.classList.add("letter-out");
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+    envObserver.observe(envelopeStage);
+
+    // ЛИСТАЕМЫЙ КАЛЕНДАРЬ 2026
+    const monthsRu = [
+      "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+      "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+    ];
+    let currentMonth = 10; // Ноябрь 2026 (чтобы можно было перелистнуть на декабрь)
+    const calBook = document.getElementById("calendarBook");
+    const calMonthName = document.getElementById("calMonthName");
+    const calDaysGrid = document.getElementById("calDaysGrid");
+
+    function renderCalendar(monthIndex) {
+      calMonthName.textContent = monthsRu[monthIndex];
+      calDaysGrid.innerHTML = "";
+      const firstDay = new Date(2026, monthIndex, 1).getDay();
+      const offset = firstDay === 0 ? 6 : firstDay - 1;
+      const daysInMonth = new Date(2026, monthIndex + 1, 0).getDate();
+
+      for (let i = 0; i < offset; i++) {
+        const empty = document.createElement("div");
+        calDaysGrid.appendChild(empty);
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cell = document.createElement("div");
+        cell.className = "cal-day";
+        if (monthIndex === 11 && d === 12) {
+          cell.classList.add("wedding-day");
+        }
+        cell.textContent = d;
+        calDaysGrid.appendChild(cell);
+      }
+    }
+
+    function flipMonth(delta) {
+      calBook.classList.add("flipping");
+      setTimeout(() => {
+        currentMonth = (currentMonth + delta + 12) % 12;
+        renderCalendar(currentMonth);
+        calBook.classList.remove("flipping");
+      }, 160);
+    }
+
+    document.getElementById("prevMonthBtn").addEventListener("click", () => flipMonth(-1));
+    document.getElementById("nextMonthBtn").addEventListener("click", () => flipMonth(1));
+    renderCalendar(currentMonth);
+
+    // Добавление события в календарь (.ics)
+    document.getElementById("addToCalBtn").addEventListener("click", () => {
+      const activeMapUrl = getDeviceMapUrl();
+      const ics = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "BEGIN:VEVENT",
+        "DTSTART:20261212T140000Z",
+        "DTEND:20261212T190000Z",
+        "SUMMARY:Свадьба Sanjar & Shukrona",
+        "DESCRIPTION:Ждём вас на нашем свадебном вечере!",
+        `LOCATION:${activeMapUrl}`,
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "sanjar-shukrona-12-12-2026.ics";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // ФОРМА RSVP С СИСТЕМНЫМ МЕНЮ "ПОДЕЛИТЬСЯ" (WHATSAPP, TELEGRAM, INSTAGRAM И ДР.)
+    document.getElementById("rsvpForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("guestName").value.trim() || "Гость";
+      const attend = document.querySelector('input[name="attend"]:checked').value;
+      const wish = document.getElementById("guestWish").value.trim();
+      const text = `Свадьба Sanjar & Shukrona (12.12.2026):\nИмя: ${name}\nОтвет: ${attend}${wish ? `\nПожелание: ${wish}` : ""}`;
+      const status = document.getElementById("rsvpStatus");
+
+      // Системное меню телефона для выбора любого приложения
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: "Свадьба Sanjar & Shukrona",
+            text: text
+          });
+          status.textContent = "Меню отправки открыто — выберите нужное приложение!";
+          return;
+        } catch (err) {
+          if (err && err.name === "AbortError") {
+            status.textContent = "Отправка отменена. Нажмите кнопку снова, чтобы выбрать приложение.";
+            return;
+          }
+        }
+      }
+
+      // Запасной вариант, если браузер не поддерживает системное окно выбора
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = "Ответ скопирован! Вставьте его в WhatsApp, Telegram или Instagram.";
+      } catch {
+        status.textContent = "Спасибо! Ваш ответ сохранён.";
+      }
+
+      if (CONFIG.telegramUsername) {
+        window.open(`https://t.me/${CONFIG.telegramUsername}?text=${encodeURIComponent(text)}`, "_blank");
+      }
+    });
+  </script>
+</body>
+</html>
